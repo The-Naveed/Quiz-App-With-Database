@@ -1,12 +1,9 @@
-localStorage.setItem("id","jcbvyuxnew098egyct76")
-var id = localStorage.getItem("id",)
+import { db, auth, signInWithEmailAndPassword, doc, getDoc} from "./firebase.js";
 
-if (!id) {
-    window.location.replace("./index.html")
-}
+var id;
+let gif = document.querySelector("#gif")
 
 
-import { db, auth, signInWithEmailAndPassword, doc, setDoc, collection, getDoc } from "./firebase.js";
 
 const login = async () => {
 
@@ -15,14 +12,16 @@ const login = async () => {
 
     if (!email || !password) {
         alert("All fields must be field")
+        return
     };
+
+    gif.style.display = "block"
 
     try {
         await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
-                localStorage.setItem("id", user.uid)
+                let user = userCredential.user;
+                id = user.uid
 
                 findUser()
             })
@@ -30,33 +29,34 @@ const login = async () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        alert(error.code)
     }
+
+    gif.style.display = "none"
 };
 
 const findUser = async () => {
-
     try {
         const docRef = doc(db, "Registerd Users List", id);
         const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-
-            if (docSnap.data().admin === true) {
-                window.location.replace("./admin/admin.html")
-            } else {
-                window.location.replace("./user/user.html")
-            };
-
-        } else {
-            console.log("No such document!");
+        if (docSnap.data().admin === true) {
+            window.location.replace("./admin/dashboard.html")
+            console.log(docSnap.data().admin);
+            
         };
+
+        if (docSnap.data().admin === false) {
+            window.location.replace("./user/dashboard.html")
+            console.log(docSnap.data().admin);
+
+        };
+
     } catch (error) {
         console.log(error.message);
     }
 
 };
-
 
 window.login = login
 window.findUser = findUser

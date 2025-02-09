@@ -1,7 +1,29 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, collection, getDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+
+import {
+    getAuth,
+    createUserWithEmailAndPassword
+}
+    from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
+import { signInWithEmailAndPassword }
+    from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    collection,
+    getDoc,
+    onSnapshot,
+    getDocs,
+    addDoc,
+    updateDoc,
+    query,
+    where
+}
+    from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -26,5 +48,11 @@ export {
     doc,
     setDoc,
     collection,
-    getDoc
+    onSnapshot,
+    getDoc,
+    getDocs,
+    addDoc,
+    updateDoc,
+    query,
+    where
 }
